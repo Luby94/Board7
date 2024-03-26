@@ -19,15 +19,15 @@
   <insert id="insertMenuByName">
   	insert into menus
   	(
-          menu_id,
-          menu_name,
-          menu_seq )
+          MENU_ID,
+          MENU_NAME,
+          MENU_SEQ )
  VALUES   (
-          (SELECT 'menu' ||
-       TRIM(to_char(nvl(MAX( substr(menu_id, 5, 2)), '00') + 1, '00') )
-  FROM menus) ,
+          (SELECT 'MENU' ||
+       TRIM(TO_CHAR(NVL(MAX( SUBSTR(MENU_ID, 5, 2)), '00') + 1, '00') )
+  FROM MENUS) ,
   #{ menu_name },
-    ( SELECT nvl(MAX(menu_seq), 0) + 1 FROM menus )
+    ( SELECT NVL(MAX(MENU_SEQ), 0) + 1 FROM MENUS )
           )
   </insert>
   

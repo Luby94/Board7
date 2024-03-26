@@ -57,7 +57,8 @@
 	    <tr>
 	      <td colspan="5">
 	        [<a href="/Menus/WriteForm">메뉴 등록</a>]&nbsp;&nbsp;&nbsp;
-	        [<a href="/Menus/WriteForm2">메뉴 등록2</a>]	      
+	        [<a href="/Menus/WriteForm2">메뉴 등록2</a>]&nbsp;&nbsp;&nbsp;    
+	        [<a href="/">Home</a>]	      
 	      </td>
 	    </tr>
 	    
