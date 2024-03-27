@@ -9,7 +9,7 @@
     margin : 0 auto;
   }
  
-  table, th, td  {
+  table, tr, td  {
      border:1px solid black;
      border-collapse: collapse;
   }
@@ -24,7 +24,7 @@
   }
   
   #menu {
-	width : 780px;
+	width : 800px;
 	margin : 30px 0;
 
     td { 

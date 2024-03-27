@@ -18,6 +18,29 @@
   
   </select>
   
+  <select id="getBoard">
+  
+    SELECT
+  		BNO,
+		MENU_ID,
+		TITLE,
+		CONTENT,
+		WRITER,
+		TO_CHAR(REGDATE, 'YYYY-MM-DD HH24:MI:SS') REGDATE,
+		HIT
+	FROM   BOARD
+	WHERE  BNO = #{ bno }
+	  
+  </select>
+  
+  <update id="incHit">
+  	
+  	UPDATE   BOARD
+  	   SET   HIT = HIT + 1
+  	 WHERE   BNO = #{ bno }
+  	
+  </update>
+  
   <insert id="insertBoard">
   
     INSERT  INTO  BOARD (
