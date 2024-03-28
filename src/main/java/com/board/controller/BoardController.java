@@ -30,18 +30,22 @@ public class BoardController {
 	public ModelAndView list( MenuVo menuVo ) {
 		
 		log.info("=====================menuVo : {}", menuVo );		// 20240326 14:33:01.393 [http-nio-9090-exec-3] INFO c.b.c.BoardController - menuVo : MenuVo(menu_id=MENU01, menu_name=null, menu_seq=0)
+																	// menu_name = null 인 이유 : ?menu_id=MENU01 만 넘어왔고 그것만 menuVo 에 담겨있기 때문
 		
-		// 메뉴 목록
+		// 메뉴 목록 조회
 		List<MenuVo> menuList = menuMapper.getMenuList();
 		
-		// 게시물 목록
+		// 게시물 목록 조회
 		List<BoardVo> boardList = boardMapper.getBoardList( menuVo );	// boardList : db 에서 들고옴 -> boardMapper
 		System.out.println( "boardList: " + boardList );
 		
-		String menu_id = menuVo.getMenu_id();
+		MenuVo mVo = menuMapper.getMenu( menuVo.getMenu_id() );		// menuVo = line30 의 (MenuVo menuVo)
+		String menu_id = mVo.getMenu_id();
+		String menu_name = mVo.getMenu_name();						// menuVo 에서 getMenu_id 해서 조회(select) 한걸 mVo에 담고 거기서 getMenu_name 한걸 menu_name 에 담음
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject( "menu_id", menu_id );
+		mv.addObject( "menu_name", menu_name );		
 		mv.addObject( "menuList", menuList );
 		mv.addObject( "boardList", boardList );
 		mv.setViewName( "board/list" );
@@ -74,7 +78,7 @@ public class BoardController {
 		
 		// 게시글 저장 -> mapper 에 insert
 		// 넘어온 값 Board 저장
-		boardMapper.insertBoard( boardVo );
+		boardMapper.insertBoard( boardVo );		// 내생각: 넘어온 값을 담은 boardVo 를 boardMapper.xml 안에 있는 id="insertBoard" SQL 문 실행(= insert)
 		
 		String        menu_id =  boardVo.getMenu_id();
 		
@@ -114,8 +118,52 @@ public class BoardController {
 		
 	}
 	
-	// 삭제
+	// 삭제 : /Board/Delete?bno=3&menu_id=MENU01
+	@RequestMapping("/Delete")
+	public ModelAndView delete( BoardVo boardVo ) {		// bno 가지고 있는 애 : BoardVo
+		
+		// 게시글 삭제
+		boardMapper.deleteBoard( boardVo );		// delete 함수는 (id="deleteBoard" 인 SQL문으로) boardVo 를 가지고 가서 삭제할 것이다
+		
+		String menu_id = boardVo.getMenu_id();
+		
+		// 다시 조회
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
+		return mv;
+		
+	}
 	
+	// 수정 : /Board/UpdateForm?bno=5&menu_id=MENU08
+	@RequestMapping("/UpdateForm")
+	public ModelAndView updateForm( BoardVo boardVo ) {
+		
+		List<MenuVo> menuList = menuMapper.getMenuList();
+		
+		BoardVo vo = boardMapper.getBoard( boardVo );
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject( "vo", vo );
+		mv.addObject( "menuList", menuList );
+		mv.setViewName( "board/update" );		// update.jsp 를 찾아라
+		return mv;
+		
+	}
+	
+	// 수정 : /Board/Update
+	@RequestMapping("/Update")
+	public ModelAndView update( BoardVo boardVo ) {
+		
+		// 수정
+		boardMapper.updateBoard( boardVo );
+		
+		String menu_id = boardVo.getMenu_id();
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id);
+		return mv;
+				
+	}
 	
 	
 	

@@ -17,5 +17,9 @@ public interface BoardMapper {
 	BoardVo getBoard(BoardVo boardVo);
 
 	void incHit(BoardVo boardVo);
-	
+
+	void deleteBoard(BoardVo boardVo);
+
+	void updateBoard(BoardVo boardVo);
+
 }

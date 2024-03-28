@@ -80,7 +80,7 @@
   
     <%@include file="/WEB-INF/include/menus.jsp" %>
   	
-  	<h2>게시물 목록</h2>
+  	<h2>${ menu_name } 게시물 목록</h2>
     <table id="table">
       <tr>
         <td>번호</td>
@@ -96,10 +96,11 @@
 	    </td>
 	  </tr>
     
-    <c:forEach  var="boardVo" items="${ boardList }" >
+    <c:forEach  var="boardVo" items="${ boardList }" >		<!-- boardList 를 한줄씩 잘라서 boardVo 에 넣음 -->
 	    <tr>
 	      <td>${ boardVo.bno     }</td>
-	      <td><a href="/Board/View?bno=${ boardVo.bno }">${ boardVo.title }</a></td>	      	      
+	      <td><a href="/Board/View?bno=${ boardVo.bno }">${ boardVo.title }</a></td>
+	      <%-- <td><a href="/Board/View?bno=${ boardVo.bno }&menu_id=${ menu_id }">${ boardVo.title }</a></td> --%>
 	      <td>${ boardVo.writer  }</td>
 	      <td>${ boardVo.regdate }</td>
 	      <td>${ boardVo.hit }</td>

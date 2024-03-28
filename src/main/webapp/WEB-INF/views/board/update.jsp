@@ -21,6 +21,10 @@
    td {
    text-align: center;
    padding: 10px;
+   
+   input[text] { width: 100%; }
+   textarea { width: 100%; height: 250px; }
+   
    &:nth-of-type(1) { width : 150px; background-color: black; color: white; }
    &:nth-of-type(2) { width : 250px; }
    &:nth-of-type(3) { width : 150px; background-color: black; color: white; }
@@ -58,9 +62,12 @@
 <body>
   <main>
   
-    <%@include file="/WEB-INF/include/menus.jsp" %>
+    <%@include file="/WEB-INF/include/menus.jsp" %>		<!-- Controller(reqmap(/UpdateForm)) 에 menuList 를 넘겨주어야 화면에 메뉴가 출력된다 -->
   
-	<h2>게시글 내용 조회</h2>
+	<h2>게시글 내용 수정</h2>
+	<form action="/Board/Update" method="POST">		<!-- Update : mapper 이용해서 db 에 저장, 이후 list 로 돌아가야함 -->
+	<input type="hidden" name="bno" value="${ vo.bno }" />		<!-- model 에 있는 bno : ${ vo.bno } -->
+	<input type="hidden" name="menu_id" value="${ vo.menu_id }" />
 	<table id="table">
 	 <tr>
 	   <td>글번호</td>
@@ -76,25 +83,21 @@
 	 </tr>
 	 <tr>
 	   <td>제목</td>
-	   <td colspan="3">${ vo.title }</td>
+	   <td colspan="3"><input type="text" name="title" value="${ vo.title }" /></td>
 	 </tr>
 	 <tr>
 	   <td>내용</td>
-	   <td colspan="3">${ vo.content }</td>
+	   <td colspan="3"><textarea name="content">${ vo.content }</textarea></td>
 	 </tr>
 	 <tr>
 	   <td colspan="4">
-	    <a class="btn btn-primary btn-sm" href="/Board/WriteForm?menu_id=${ vo.menu_id }">새 글 쓰기</a>&nbsp;&nbsp;
-	    <a class="btn btn-warning btn-sm" href="/Board/UpdateForm?bno=${ vo.bno }&menu_id=${ vo.menu_id }">수정</a>&nbsp;&nbsp;
-	    <a class="btn btn-danger btn-sm" href="/Board/Delete?bno=${ vo.bno }&menu_id=${ vo.menu_id }">삭제</a>&nbsp;&nbsp;
-	    <!-- 해당 bno 에 해당하는 게시글 삭제 후 돌아올 위치 필요 : menu_id -->
-	    <a class="btn btn-secondary btn-sm" href="/Board/List?menu_id=${ vo.menu_id }">목록</a>&nbsp;&nbsp;
-	    <a class="btn btn-info btn-sm" href="javascript:history.back()">이전으로</a>&nbsp;&nbsp;
-	    <a class="btn btn-success btn-sm" href="/">Home</a>
+	    <input class="btn btn-primary btn-sm" type="submit" value="수정" />
+	    <a class="btn btn-primary btn-sm" href="/Board/List?menu_id=${ vo.menu_id }">목록</a>
 	   </td>
 	 </tr>
 	
-	</table>	   
+	</table>	
+	</form>   
 	
   </main>
   
