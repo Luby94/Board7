@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" type="image/png" href="/img/favicon.png" />
+<link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
 <link rel="stylesheet"  href="/css/common.css" />
 <style>
    
@@ -23,6 +24,13 @@
 	<div>&nbsp;</div>
 	<div><a href="/Board/List?menu_id=MENU01">게시물 목록</a></div>
 	<div><a href="/Board/WriteForm?menu_id=MENU01">게시물 등록</a></div>
+	<div>&nbsp;</div>
+	<div><a href="/loginForm" class="btn btn-info btn-sm">로그인</a></div>
+	<div>
+		${ login.username } 님 환영합니다<br />
+		당신의 가입일은 ${ login.indate } 입니다
+	</div>
+	<div><a href="/logout" class="btn btn-info btn-sm" style="padding: 1px">로그아웃</a></div>
   </main>	
 </body>
 </html>

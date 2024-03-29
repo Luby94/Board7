@@ -91,6 +91,21 @@
   	 WHERE  USERID = #{ userid }
   	
   </delete>
+  
+  <!-- 로그인 -->
+  <select id="login">
+  
+  	SELECT   USERID
+  	       , PASSWD
+  	       , USERNAME
+  	       , EMAIL
+  	       , UPOINT
+  	       , TO_CHAR( INDATE, 'YYYY-MM-DD' ) INDATE
+  	  FROM   TUSER
+  	 WHERE   USERID = #{ arg1 }
+  	   AND	 PASSWD = #{ arg0 }
+  
+  </select>
 
 </mapper>
 
