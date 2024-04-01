@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"  %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +27,14 @@
 	<div><a href="/Board/List?menu_id=MENU01">게시물 목록</a></div>
 	<div><a href="/Board/WriteForm?menu_id=MENU01">게시물 등록</a></div>
 	<div>&nbsp;</div>
+	
+	<c:if test="${ sessionScope.login == null || login == '' }">
 	<div><a href="/loginForm" class="btn btn-info btn-sm">로그인</a></div>
+	</c:if>
+	<!-- sessionScope 변수에 login 변수 있음 -->
+	<!-- session 안에 있는 login 이 null 인 경우(= 로그인 안된 경우)는 /loginForm 으로 이동하는 로그인 a tag 가 보이고 -->
+	<!-- login 이 null 이 아닌 경우(= 로그인 된 경우)는 로그인 안보임 -->
+	
 	<div>
 		${ login.username } 님 환영합니다<br />
 		당신의 가입일은 ${ login.indate } 입니다
